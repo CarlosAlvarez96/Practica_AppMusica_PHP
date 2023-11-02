@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <?php
+
+    if (!empty($_SESSION['user'])) {
+        echo "Sesion iniciada";
+    } else {
+    ?>
+        <div class="container">
+            <h2 class="mt-5">Inicio de sesión</h2>
+            <form action="index.php?u=login" method="POST" class="form-control">
+                <input type="text" name="username">
+                <input type="password" name="password">
+                <input type="submit" name="login" value="entrar">
+            </form>
+        </div>
+    <?php
+    }
+    ?>
+</body>
+
+</html>

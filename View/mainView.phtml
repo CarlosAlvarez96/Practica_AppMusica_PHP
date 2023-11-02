@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listas de reproducción</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .welcome-message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <?php
+    if (!empty($_SESSION['user'])) {
+        echo '<h2>Bienvenido a listas de canciones</h2>';
+        echo '<form action="index.php" method="get">
+            <input type="hidden" name="u" value="playlist">
+            <button class="btn" type="submit" name="playlist" value="t">Listar playlists</button>
+            </form>';
+        if (!empty($userPlaylists)) {
+            foreach ($userPlaylists as $pl) {
+                echo $pl->getName();
+                echo '<br>';
+                foreach ($pl->getSongs() as $song) {
+                    echo '<li>' . $song->getTitle() . '</li>';
+                }
+                echo '</ul>';
+            }
+        } else {
+            echo 'Pulsa el botón para listar tus playlists de canciones';
+        }
+
+
+
+
+        echo '<form action="index.php" method="get">
+            <input type="hidden" name="u" value="manage">
+            <button class="btn" type="submit" name="manage" value="t">Manejar canciones y playlist</button>
+        </form>';
+        echo '<form action="index.php" method="get">
+            <input type="hidden" name="u" value="login">
+            <button class="btn" type="submit" name="logout" value="t">Log out</button>
+        </form>';
+    } else {
+        echo '
+        <div class="container">
+        <div class="welcome-message">¡Bienvenido a Listas de Canciones!</div>
+
+        <form action="index.php" method="get">
+            <button class="btn" type="submit" name="u" value="login">Login</button>
+            <button class="btn" type="submit" name="u" value="signUp">Sign Up</button>
+        </form>
+    </div>';
+    }
+    ?>
+
+
+</body>
+
+</html>
